@@ -1,6 +1,16 @@
 import pytest
 from main import BudgetApp
 import tkinter as tk
+from tkinter import messagebox
+
+def mock_showinfo(title, message):
+    pass
+
+def mock_showwarning(title, message):
+    pass
+
+def mock_showerror(title, message):
+    pass
 
 @pytest.fixture
 def app():
@@ -8,6 +18,23 @@ def app():
     app = BudgetApp(root)
     yield app
     app.budget_manager.clear_data()
+    root.destroy()
+
+@pytest.fixture(autouse=True)
+def override_messagebox():
+    original_showinfo = messagebox.showinfo
+    original_showwarning = messagebox.showwarning
+    original_showerror = messagebox.showerror
+
+    messagebox.showinfo = mock_showinfo
+    messagebox.showwarning = mock_showwarning
+    messagebox.showerror = mock_showerror
+
+    yield
+
+    messagebox.showinfo = original_showinfo
+    messagebox.showwarning = original_showwarning
+    messagebox.showerror = original_showerror
 
 def test_add_budget(app):
     app.budget_entry.insert(0, "1000")
