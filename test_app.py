@@ -5,10 +5,8 @@ from tkinter import messagebox
 
 def mock_showinfo(title, message):
     pass
-
 def mock_showwarning(title, message):
     pass
-
 def mock_showerror(title, message):
     pass
 
