@@ -9,9 +9,13 @@ class BudgetManager:
 
     def remove_expense(self, index):
         expenses = self.db.get_expenses()
-        if index < len(expenses):
-            expense_id = expenses[index][0]
-            return self.db.remove_expense(expense_id)
+        expense_id = expenses[index][0]
+        return self.db.remove_expense(expense_id)
+
+    def get_expense_amount(self, index):
+        expenses = self.db.get_expenses()
+        expense_amount = expenses[index][1]
+        return expense_amount
 
     def add_budget(self, amount):
         return self.db.add_budget(amount)
