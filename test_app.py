@@ -37,7 +37,9 @@ def override_messagebox():
 def test_add_budget(app):
     app.budget_entry.insert(0, "1000")
     app.add_budget()
-    assert app.budget_manager.get_current_budget() == 1000.0
+    app.budget_entry.insert(0, "500")
+    app.add_budget()
+    assert app.budget_manager.get_current_budget() == 1500.0
 
 def test_add_expense(app):
     app.budget_entry.insert(0, "1000")
