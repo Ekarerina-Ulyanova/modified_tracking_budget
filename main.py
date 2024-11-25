@@ -67,6 +67,9 @@ class BudgetApp:
     def remove_expense(self):
         selected_index = self.expense_listbox.curselection()
         if selected_index:
+            amount = self.budget_manager.get_expense_amount(selected_index[0])
+            self.budget_manager.add_budget(amount)
+            self.update_budget_label()
             self.budget_manager.remove_expense(selected_index[0])
             self.update_expense_list()
             messagebox.showinfo("Success", "Expense removed successfully!")
