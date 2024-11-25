@@ -18,22 +18,22 @@ class BudgetApp:
 
         self.budget_entry = tk.Entry(self.root)
         self.budget_entry.pack()
-        self.budget_entry.insert(0, "Enter amount")
+        self.budget_entry.insert(0, "")
 
         self.add_budget_button = tk.Button(self.root, text="Add Budget", command=self.add_budget)
         self.add_budget_button.pack()
 
         self.amount_entry = tk.Entry(self.root)
         self.amount_entry.pack()
-        self.amount_entry.insert(0, "Enter amount")
+        self.amount_entry.insert(0, "")
 
         self.category_entry = tk.Entry(self.root)
         self.category_entry.pack()
-        self.category_entry.insert(0, "Enter category")
+        self.category_entry.insert(0, "")
 
         self.description_entry = tk.Entry(self.root)
         self.description_entry.pack()
-        self.description_entry.insert(0, "Enter description")
+        self.description_entry.insert(0, "")
 
         self.add_button = tk.Button(self.root, text="Add Expense", command=self.add_expense)
         self.add_button.pack()
@@ -50,9 +50,11 @@ class BudgetApp:
     def add_expense(self):
         try:
             amount = float(self.amount_entry.get())
+            self.amount_entry.delete(0, tk.END)
             category = self.category_entry.get()
+            self.category_entry.delete(0, tk.END)
             description = self.description_entry.get()
-            amount = float(self.amount_entry.get())
+            self.description_entry.delete(0, tk.END)
             if amount <= self.budget_manager.get_current_budget():
                 self.budget_manager.add_budget(-amount)
                 self.update_budget_label()
@@ -81,9 +83,11 @@ class BudgetApp:
             amount = float(self.budget_entry.get())
             self.budget_manager.add_budget(amount)
             self.update_budget_label()
+            self.budget_entry.delete(0, tk.END)
             messagebox.showinfo("Success", "Budget updated successfully!")
         except ValueError:
             messagebox.showerror("Error", "Please enter a valid amount.")
+            self.budget_entry.delete(0, tk.END)
 
     def view_monthly_info(self):
         info = self.budget_manager.view_monthly_info()
