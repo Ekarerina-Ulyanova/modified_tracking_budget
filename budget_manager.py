@@ -26,9 +26,6 @@ class BudgetManager:
     def get_expenses(self):
         return [f"${exp[1]:.2f} - {exp[2]}: {exp[3]}" for exp in self.db.get_expenses()]
 
-    def save_data(self):
-        return self.db.save_data()
-
     def view_monthly_info(self):
         return self.db.view_monthly_info()
 
