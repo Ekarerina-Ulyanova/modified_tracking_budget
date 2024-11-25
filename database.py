@@ -3,7 +3,7 @@ import sqlite3
 class Database:
     def __init__(self):
         self.connection = sqlite3.connect('budget.db')
-        self.cursor = self.connection.cursor()  # Здесь нужно использовать cursor()
+        self.cursor = self.connection.cursor()
         self.create_tables()
 
     def create_tables(self):
@@ -23,7 +23,6 @@ class Database:
             )
         ''')
         
-        # Инициализация бюджета, если он не существует
         self.cursor.execute('SELECT COUNT(*) FROM budget')
         if self.cursor.fetchone()[0] == 0:
             self.cursor.execute('INSERT INTO budget (id, amount) VALUES (1, 0)')
