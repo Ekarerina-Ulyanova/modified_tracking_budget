@@ -29,5 +29,8 @@ class BudgetManager:
     def view_monthly_info(self):
         return self.db.view_monthly_info()
 
+    def clear_data(self):
+        self.db.clear()
+
     def close(self):
         return self.db.close()
