@@ -3,7 +3,18 @@ from tkinter import messagebox
 from budget_manager import BudgetManager
 
 class BudgetApp:
+    """
+A GUI application for tracking personal budgets."""
     def __init__(self, root):
+        """
+Initializes the main application window.
+
+    Args:
+        root: The Tkinter root window.
+
+    Returns:
+        None
+    """
         self.root = root
         self.root.title("Budget Manager")
         
@@ -13,6 +24,18 @@ class BudgetApp:
         self.update_expense_list()
 
     def create_widgets(self):
+        """
+Creates the GUI widgets for the budget tracker.
+
+    This method creates and packs all the necessary labels, entry fields,
+    and buttons to allow the user to interact with the budget tracker application.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
         self.budget_label = tk.Label(self.root, text= f"Current Budget: ${self.budget_manager.get_current_budget():.2f}")
         self.budget_label.pack()
 
@@ -48,6 +71,19 @@ class BudgetApp:
         self.view_button.pack()
 
     def add_expense(self):
+        """
+Adds a new expense to the budget.
+
+    Retrieves the amount, category, and description from entry fields, 
+    validates the amount against the remaining budget, and adds the expense 
+    if it's within budget limits.  Clears the input fields after adding.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
         try:
             amount = float(self.amount_entry.get())
             self.amount_entry.delete(0, tk.END)
@@ -67,6 +103,15 @@ class BudgetApp:
             messagebox.showerror("Error", "Please enter a valid number.")
 
     def remove_expense(self):
+        """
+Removes the selected expense from the list and adds the amount back to the budget.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
         selected_index = self.expense_listbox.curselection()
         if selected_index:
             amount = self.budget_manager.get_expense_amount(selected_index[0])
@@ -79,6 +124,18 @@ class BudgetApp:
             messagebox.showwarning("Warning", "Select an expense to remove.")
 
     def add_budget(self):
+        """
+Adds the budget amount entered by the user.
+
+    Handles potential ValueError if the input is invalid, 
+    updates the budget manager and label, and clears the entry field.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
         try:
             amount = float(self.budget_entry.get())
             self.budget_manager.add_budget(amount)
@@ -90,15 +147,42 @@ class BudgetApp:
             self.budget_entry.delete(0, tk.END)
 
     def view_monthly_info(self):
+        """
+Displays monthly budget information in a message box.
+
+    Args:
+        self: The instance of the class.
+
+    Returns:
+        None
+    """
         info = self.budget_manager.view_monthly_info()
         messagebox.showinfo("Monthly Info", info)
 
     def update_expense_list(self):
+        """
+Updates the expense listbox with the current expenses.
+
+    Args:
+        self: The instance of the class containing the method.
+
+    Returns:
+        None
+    """
         self.expense_listbox.delete(0, tk.END)
         for expense in self.budget_manager.get_expenses():
             self.expense_listbox.insert(tk.END, expense)
 
     def update_budget_label(self):
+        """
+Updates the budget label with the current budget amount.
+
+  Args:
+    self: The instance of the class containing the method.
+
+  Returns:
+    None
+  """
         budget = self.budget_manager.get_current_budget()
         self.budget_label.config(text=f"Current Budget: ${budget:.2f}")
 
