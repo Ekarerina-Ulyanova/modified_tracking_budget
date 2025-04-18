@@ -33,4 +33,5 @@ class BudgetManager:
         self.db.clear()
 
     def close(self):
+        #Закрывает соединение с базой данных
         return self.db.close()
