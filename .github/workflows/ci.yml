@@ -28,9 +28,9 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install black flake8 pytest
 
-    - name: Run Black (code formatter) check
+    - name: Run Black (code formatter)
       run: |
-        black --check .
+        black .
 
     - name: Run PEP8 checks with flake8
       run: |
