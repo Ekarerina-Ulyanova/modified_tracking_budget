@@ -1,6 +1,7 @@
 from database import Database
 
 class BudgetManager:
+    """Custom class"""
     def __init__(self):
         self.db = Database()
 
