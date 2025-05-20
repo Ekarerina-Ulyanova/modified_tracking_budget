@@ -7,7 +7,3 @@ jobs:
       - uses: actions/checkout@master
       - name: Automatic requirements.txt for Python Project
         uses: ryan-rozario/pipreqs-action@master
-
-        with:
-          PROJECT_PATH: project_folder
-          REQUIREMENT_PATH: project_folder/requirements.txt
