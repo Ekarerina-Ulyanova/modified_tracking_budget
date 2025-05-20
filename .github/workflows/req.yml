@@ -18,8 +18,8 @@ jobs:
 
       - name: List files in workspace
         run: |
-          ls -R /github/workspace
+          ls -R $GITHUB_WORKSPACE  # Используйте переменную окружения
 
       - name: Generate requirements.txt
         run: |
-          pipreqs /github/workspace --force  # Указывает путь к корневой директории
+          pipreqs $GITHUB_WORKSPACE --force
