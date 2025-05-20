@@ -16,6 +16,10 @@ jobs:
         run: |
           pip install pipreqs
 
+      - name: List files in workspace
+        run: |
+          ls -R /github/workspace
+
       - name: Generate requirements.txt
         run: |
           pipreqs /github/workspace --force  # Указывает путь к корневой директории
