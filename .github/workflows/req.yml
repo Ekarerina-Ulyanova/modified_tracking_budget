@@ -1,7 +1,7 @@
 name: req
-'on':
-- push
-- pull_request
+on:
+  - push
+  - pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,8 +26,16 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add requirements.txt
-          git commit -m "Add requirements.txt"
-          git push
+        
+          if [ -f requirements.txt ]; then
+            echo "requirements.txt already exists."
+            git add requirements.txt
+            git commit -m "Update requirements.txt"
+            git push
+          else
+            git add requirements.txt
+            git commit -m "Add requirements.txt"
+            git push
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
