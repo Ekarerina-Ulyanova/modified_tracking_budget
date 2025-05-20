@@ -18,18 +18,32 @@ jobs:
         run: |
           pip install pipreqs
 
-      - name: Generate requirements.txt
+      - name: Generate new requirements.txt
         run: |
-          pipreqs $GITHUB_WORKSPACE --force
+          pipreqs $GITHUB_WORKSPACE --force --savepath requirements_new.txt
 
-      - name: Commit and push changes
+      - name: Update requirements.txt if necessary
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-        
+
+          # Check if requirements.txt exists and compare with the new file
           if [ -f requirements.txt ]; then
             echo "requirements.txt already exists."
+            # Compare the existing and new requirements.txt
+            if ! cmp -s requirements.txt requirements_new.txt; then
+              echo "Updating requirements.txt."
+              mv requirements_new.txt requirements.txt
+              git add requirements.txt
+              git commit -m "Update requirements.txt"
+              git push
+            else
+              echo "No changes to requirements.txt."
+              rm requirements_new.txt  # Удаляем временный файл, если изменений нет
+            fi
           else
+            echo "requirements.txt does not exist. Creating it."
+            mv requirements_new.txt requirements.txt
             git add requirements.txt
             git commit -m "Add requirements.txt"
             git push
