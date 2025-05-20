@@ -4,6 +4,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Automatic requirements.txt for Python Project
-        uses: ryan-rozario/pipreqs-action@master
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # Укажите версию Python, которую вы хотите использовать
+
+      - name: Install pipreqs
+        run: |
+          pip install pipreqs
+
+      - name: Generate requirements.txt
+        run: |
+          pipreqs /github/workspace --force  # Указывает путь к корневой директории
