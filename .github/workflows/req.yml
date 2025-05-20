@@ -16,10 +16,16 @@ jobs:
         run: |
           pip install pipreqs
 
-      - name: List files in workspace
-        run: |
-          ls -R $GITHUB_WORKSPACE  # Используйте переменную окружения
-
       - name: Generate requirements.txt
         run: |
           pipreqs $GITHUB_WORKSPACE --force
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add requirements.txt
+          git commit -m "Add requirements.txt"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
