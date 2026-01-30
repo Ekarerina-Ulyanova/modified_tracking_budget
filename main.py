@@ -1,3 +1,4 @@
+```python
 import tkinter as tk
 from tkinter import messagebox
 from budget_manager import BudgetManager
@@ -6,14 +7,14 @@ class BudgetApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Budget Manager")
-        
+
         self.budget_manager = BudgetManager()
 
         self.create_widgets()
         self.update_expense_list()
 
     def create_widgets(self):
-        self.budget_label = tk.Label(self.root, text= f"Current Budget: ${self.budget_manager.get_current_budget():.2f}")
+        self.budget_label = tk.Label(self.root, text=f"Current Budget: ${self.budget_manager.get_current_budget():.2f}")
         self.budget_label.pack()
 
         self.budget_entry = tk.Entry(self.root)
@@ -102,7 +103,16 @@ class BudgetApp:
         budget = self.budget_manager.get_current_budget()
         self.budget_label.config(text=f"Current Budget: ${budget:.2f}")
 
+    def save_data(self):
+        self.budget_manager.save_data()
+
+    def load_data(self):
+        self.budget_manager.load_data()
+        self.update_expense_list()
+        self.update_budget_label()
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = BudgetApp(root)
     root.mainloop()
+```
