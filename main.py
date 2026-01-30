@@ -47,6 +47,16 @@ class BudgetApp:
         self.view_button = tk.Button(self.root, text="View Monthly Info", command=self.view_monthly_info)
         self.view_button.pack()
 
+        self.filter_button = tk.Button(self.root, text="Filter Expenses", command=self.filter_expenses)
+        self.filter_button.pack()
+
+        self.filter_label = tk.Label(self.root, text="Filter by category:")
+        self.filter_label.pack()
+
+        self.filter_entry = tk.Entry(self.root)
+        self.filter_entry.pack()
+        self.filter_entry.insert(0, "")
+
     def add_expense(self):
         try:
             amount = float(self.amount_entry.get())
@@ -92,6 +102,12 @@ class BudgetApp:
     def view_monthly_info(self):
         info = self.budget_manager.view_monthly_info()
         messagebox.showinfo("Monthly Info", info)
+
+    def filter_expenses(self):
+        category = self.filter_entry.get()
+        self.expense_listbox.delete(0, tk.END)
+        for expense in self.budget_manager.get_expenses(category):
+            self.expense_listbox.insert(tk.END, expense)
 
     def update_expense_list(self):
         self.expense_listbox.delete(0, tk.END)
