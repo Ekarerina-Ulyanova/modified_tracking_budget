@@ -1,3 +1,4 @@
+```python
 import tkinter as tk
 from tkinter import messagebox
 from budget_manager import BudgetManager
@@ -6,14 +7,14 @@ class BudgetApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Budget Manager")
-        
+
         self.budget_manager = BudgetManager()
 
         self.create_widgets()
         self.update_expense_list()
 
     def create_widgets(self):
-        self.budget_label = tk.Label(self.root, text= f"Current Budget: ${self.budget_manager.get_current_budget():.2f}")
+        self.budget_label = tk.Label(self.root, text=f"Current Budget: ${self.budget_manager.get_current_budget():.2f}")
         self.budget_label.pack()
 
         self.budget_entry = tk.Entry(self.root)
@@ -47,13 +48,14 @@ class BudgetApp:
         self.view_button = tk.Button(self.root, text="View Monthly Info", command=self.view_monthly_info)
         self.view_button.pack()
 
-    def add_expense(self):
+    def add_expense(self) -> None:
+        """Add a new expense to the budget."""
         try:
-            amount = float(self.amount_entry.get())
+            amount: float = float(self.amount_entry.get())
             self.amount_entry.delete(0, tk.END)
-            category = self.category_entry.get()
+            category: str = self.category_entry.get()
             self.category_entry.delete(0, tk.END)
-            description = self.description_entry.get()
+            description: str = self.description_entry.get()
             self.description_entry.delete(0, tk.END)
             if amount <= self.budget_manager.get_current_budget():
                 self.budget_manager.add_budget(-amount)
@@ -66,10 +68,11 @@ class BudgetApp:
         except ValueError:
             messagebox.showerror("Error", "Please enter a valid number.")
 
-    def remove_expense(self):
-        selected_index = self.expense_listbox.curselection()
+    def remove_expense(self) -> None:
+        """Remove a selected expense from the budget."""
+        selected_index: tuple = self.expense_listbox.curselection()
         if selected_index:
-            amount = self.budget_manager.get_expense_amount(selected_index[0])
+            amount: float = self.budget_manager.get_expense_amount(selected_index[0])
             self.budget_manager.add_budget(amount)
             self.update_budget_label()
             self.budget_manager.remove_expense(selected_index[0])
@@ -78,9 +81,10 @@ class BudgetApp:
         else:
             messagebox.showwarning("Warning", "Select an expense to remove.")
 
-    def add_budget(self):
+    def add_budget(self) -> None:
+        """Update the current budget."""
         try:
-            amount = float(self.budget_entry.get())
+            amount: float = float(self.budget_entry.get())
             self.budget_manager.add_budget(amount)
             self.update_budget_label()
             self.budget_entry.delete(0, tk.END)
@@ -89,20 +93,24 @@ class BudgetApp:
             messagebox.showerror("Error", "Please enter a valid amount.")
             self.budget_entry.delete(0, tk.END)
 
-    def view_monthly_info(self):
-        info = self.budget_manager.view_monthly_info()
+    def view_monthly_info(self) -> None:
+        """Display monthly budget information."""
+        info: str = self.budget_manager.view_monthly_info()
         messagebox.showinfo("Monthly Info", info)
 
-    def update_expense_list(self):
+    def update_expense_list(self) -> None:
+        """Update the expense listbox."""
         self.expense_listbox.delete(0, tk.END)
         for expense in self.budget_manager.get_expenses():
             self.expense_listbox.insert(tk.END, expense)
 
-    def update_budget_label(self):
-        budget = self.budget_manager.get_current_budget()
+    def update_budget_label(self) -> None:
+        """Update the current budget label."""
+        budget: float = self.budget_manager.get_current_budget()
         self.budget_label.config(text=f"Current Budget: ${budget:.2f}")
 
 if __name__ == "__main__":
     root = tk.Tk()
     app = BudgetApp(root)
     root.mainloop()
+```
