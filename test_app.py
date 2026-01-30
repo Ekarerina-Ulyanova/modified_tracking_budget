@@ -1,3 +1,4 @@
+```python
 import pytest
 from main import BudgetApp
 import tkinter as tk
@@ -34,14 +35,16 @@ def override_messagebox():
     messagebox.showwarning = original_showwarning
     messagebox.showerror = original_showerror
 
-def test_add_budget(app):
+def test_add_budget(app: BudgetApp):
+    """Test adding a budget."""
     app.budget_entry.insert(0, "1000")
     app.add_budget()
     app.budget_entry.insert(0, "500")
     app.add_budget()
     assert app.budget_manager.get_current_budget() == 1500.0
 
-def test_add_expense(app):
+def test_add_expense(app: BudgetApp):
+    """Test adding an expense."""
     app.budget_entry.insert(0, "1000")
     app.add_budget()
     app.amount_entry.insert(0, "200")
@@ -51,7 +54,8 @@ def test_add_expense(app):
     assert app.budget_manager.get_current_budget() == 800.0
     assert len(app.budget_manager.get_expenses()) == 1
 
-def test_expense_more_than_in_budget(app):
+def test_expense_more_than_in_budget(app: BudgetApp):
+    """Test adding an expense that exceeds the budget."""
     app.budget_entry.insert(0, "1000")
     app.add_budget()
     app.amount_entry.insert(0, "1200")
@@ -61,7 +65,8 @@ def test_expense_more_than_in_budget(app):
     assert app.budget_manager.get_current_budget() == 1000.0
     assert len(app.budget_manager.get_expenses()) == 0
 
-def test_remove_expense(app):
+def test_remove_expense(app: BudgetApp):
+    """Test removing an expense."""
     app.budget_entry.insert(0, "1000")
     app.add_budget()
     app.amount_entry.insert(0, "200")
@@ -73,7 +78,8 @@ def test_remove_expense(app):
     assert app.budget_manager.get_current_budget() == 1000.0
     assert len(app.budget_manager.get_expenses()) == 0
 
-def test_view_monthly_info(app):
+def test_view_monthly_info(app: BudgetApp):
+    """Test viewing monthly information."""
     app.budget_entry.insert(0, "1000")
     app.add_budget()
     app.amount_entry.insert(0, "200")
@@ -87,5 +93,21 @@ def test_view_monthly_info(app):
     info = app.budget_manager.view_monthly_info()
     assert "Total Expenses: $210.00" in info
 
+def test_view_yearly_info(app: BudgetApp):
+    """Test viewing yearly information."""
+    app.budget_entry.insert(0, "1000")
+    app.add_budget()
+    app.amount_entry.insert(0, "200")
+    app.category_entry.insert(0, "Food")
+    app.description_entry.insert(0, "Groceries")
+    app.add_expense()
+    app.amount_entry.insert(0, "10")
+    app.category_entry.insert(0, "Entertainment")
+    app.description_entry.insert(0, "Theater")
+    app.add_expense()
+    info = app.budget_manager.view_yearly_info()
+    assert "Total Expenses: $210.00" in info
+
 if __name__ == "__main__":
     pytest.main()
+```
