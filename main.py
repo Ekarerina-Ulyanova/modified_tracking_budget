@@ -1,3 +1,4 @@
+```python
 import tkinter as tk
 from tkinter import messagebox
 from budget_manager import BudgetManager
@@ -47,6 +48,16 @@ class BudgetApp:
         self.view_button = tk.Button(self.root, text="View Monthly Info", command=self.view_monthly_info)
         self.view_button.pack()
 
+        self.filter_button = tk.Button(self.root, text="Filter Expenses", command=self.filter_expenses)
+        self.filter_button.pack()
+
+        self.filter_label = tk.Label(self.root, text="Filter by category:")
+        self.filter_label.pack()
+
+        self.filter_entry = tk.Entry(self.root)
+        self.filter_entry.pack()
+        self.filter_entry.insert(0, "")
+
     def add_expense(self):
         try:
             amount = float(self.amount_entry.get())
@@ -93,6 +104,12 @@ class BudgetApp:
         info = self.budget_manager.view_monthly_info()
         messagebox.showinfo("Monthly Info", info)
 
+    def filter_expenses(self):
+        category = self.filter_entry.get()
+        self.expense_listbox.delete(0, tk.END)
+        for expense in self.budget_manager.get_expenses(category):
+            self.expense_listbox.insert(tk.END, expense)
+
     def update_expense_list(self):
         self.expense_listbox.delete(0, tk.END)
         for expense in self.budget_manager.get_expenses():
@@ -102,7 +119,11 @@ class BudgetApp:
         budget = self.budget_manager.get_current_budget()
         self.budget_label.config(text=f"Current Budget: ${budget:.2f}")
 
+    def filter_expenses_by_category(self, category):
+        return [expense for expense in self.budget_manager.get_expenses() if expense.category == category]
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = BudgetApp(root)
     root.mainloop()
+```
