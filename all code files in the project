@@ -1,0 +1,56 @@
+```python
+# all_code_files.py
+
+def greet(name: str) -> str:
+    """
+    Returns a personalized greeting message.
+
+    Args:
+        name (str): The person's name.
+
+    Returns:
+        str: A greeting message.
+    """
+    return f"Hello, {name}!"
+
+def calculate_area(length: float, width: float) -> float:
+    """
+    Calculates the area of a rectangle.
+
+    Args:
+        length (float): The length of the rectangle.
+        width (float): The width of the rectangle.
+
+    Returns:
+        float: The area of the rectangle.
+
+    Raises:
+        ValueError: If the length or width is negative.
+    """
+    if length < 0 or width < 0:
+        raise ValueError("Length and width cannot be negative.")
+    return length * width
+
+def process_data(data: list) -> list:
+    """
+    Processes a list of numbers by squaring each number.
+
+    Args:
+        data (list): A list of numbers.
+
+    Returns:
+        list: A list of squared numbers.
+    """
+    return [num ** 2 for num in data]
+
+def main():
+    """
+    Demonstrates the usage of the functions in this module.
+    """
+    print(greet("John"))
+    print(calculate_area(5, 3))
+    print(process_data([1, 2, 3, 4, 5]))
+
+if __name__ == "__main__":
+    main()
+```
