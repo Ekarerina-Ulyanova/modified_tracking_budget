@@ -1,3 +1,4 @@
+```python
 import tkinter as tk
 from tkinter import messagebox
 from budget_manager import BudgetManager
@@ -6,14 +7,14 @@ class BudgetApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Budget Manager")
-        
+
         self.budget_manager = BudgetManager()
 
         self.create_widgets()
         self.update_expense_list()
 
     def create_widgets(self):
-        self.budget_label = tk.Label(self.root, text= f"Current Budget: ${self.budget_manager.get_current_budget():.2f}")
+        self.budget_label = tk.Label(self.root, text=f"Current Budget: ${self.budget_manager.get_current_budget():.2f}")
         self.budget_label.pack()
 
         self.budget_entry = tk.Entry(self.root)
@@ -46,6 +47,9 @@ class BudgetApp:
 
         self.view_button = tk.Button(self.root, text="View Monthly Info", command=self.view_monthly_info)
         self.view_button.pack()
+
+        self.export_button = tk.Button(self.root, text="Export to CSV", command=self.export_to_csv)
+        self.export_button.pack()
 
     def add_expense(self):
         try:
@@ -93,6 +97,10 @@ class BudgetApp:
         info = self.budget_manager.view_monthly_info()
         messagebox.showinfo("Monthly Info", info)
 
+    def export_to_csv(self):
+        self.budget_manager.export_to_csv()
+        messagebox.showinfo("Success", "Data exported to CSV successfully!")
+
     def update_expense_list(self):
         self.expense_listbox.delete(0, tk.END)
         for expense in self.budget_manager.get_expenses():
@@ -102,7 +110,11 @@ class BudgetApp:
         budget = self.budget_manager.get_current_budget()
         self.budget_label.config(text=f"Current Budget: ${budget:.2f}")
 
+    def export_to_csv(self):
+        self.budget_manager.export_to_csv()
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = BudgetApp(root)
     root.mainloop()
+```
