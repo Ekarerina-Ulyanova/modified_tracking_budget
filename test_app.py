@@ -1,3 +1,4 @@
+```python
 import pytest
 from main import BudgetApp
 import tkinter as tk
@@ -87,5 +88,34 @@ def test_view_monthly_info(app):
     info = app.budget_manager.view_monthly_info()
     assert "Total Expenses: $210.00" in info
 
+def test_view_yearly_info(app):
+    app.budget_entry.insert(0, "1000")
+    app.add_budget()
+    app.amount_entry.insert(0, "200")
+    app.category_entry.insert(0, "Food")
+    app.description_entry.insert(0, "Groceries")
+    app.add_expense()
+    app.amount_entry.insert(0, "10")
+    app.category_entry.insert(0, "Entertainment")
+    app.description_entry.insert(0, "Theater")
+    app.add_expense()
+    info = app.budget_manager.view_yearly_info()
+    assert "Total Expenses: $210.00" in info
+
+def test_view_category_info(app):
+    app.budget_entry.insert(0, "1000")
+    app.add_budget()
+    app.amount_entry.insert(0, "200")
+    app.category_entry.insert(0, "Food")
+    app.description_entry.insert(0, "Groceries")
+    app.add_expense()
+    app.amount_entry.insert(0, "10")
+    app.category_entry.insert(0, "Entertainment")
+    app.description_entry.insert(0, "Theater")
+    app.add_expense()
+    info = app.budget_manager.view_category_info("Food")
+    assert "Total Expenses: $200.00" in info
+
 if __name__ == "__main__":
     pytest.main()
+```
