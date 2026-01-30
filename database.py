@@ -1,3 +1,4 @@
+```python
 import sqlite3
 
 class Database:
@@ -29,30 +30,30 @@ class Database:
             self.cursor.execute('INSERT INTO budget (id, amount) VALUES (1, 0)')
             self.connection.commit()
 
-    def add_expense(self, amount, category, description):
+    def add_expense(self, amount: float, category: str, description: str) -> None:
         self.cursor.execute('INSERT INTO expenses (amount, category, description) VALUES (?, ?, ?)', 
                             (amount, category, description))
         self.connection.commit()
 
-    def remove_expense(self, expense_id):
+    def remove_expense(self, expense_id: int) -> None:
         self.cursor.execute('DELETE FROM expenses WHERE id = ?', (expense_id,))
         self.connection.commit()
 
-    def add_budget(self, amount):
+    def add_budget(self, amount: float) -> None:
         current_budget = self.get_current_budget()
         new_budget = current_budget + amount
         self.cursor.execute('UPDATE budget SET amount = ? WHERE id = 1', (new_budget,))
         self.connection.commit()
 
-    def get_current_budget(self):
+    def get_current_budget(self) -> float:
         self.cursor.execute('SELECT amount FROM budget WHERE id = 1')
         return self.cursor.fetchone()[0]
 
-    def get_expenses(self):
+    def get_expenses(self) -> list[tuple[int, float, str, str]]:
         self.cursor.execute('SELECT * FROM expenses')
         return [(row[0], row[1], row[2], row[3]) for row in self.cursor.fetchall()]
 
-    def view_monthly_info(self):
+    def view_monthly_info(self) -> str:
         expenses = self.get_expenses()
         total_expenses = sum(exp[1] for exp in expenses)
         
@@ -61,7 +62,7 @@ class Database:
         
         return info
 
-    def clear(self):
+    def clear(self) -> None:
         self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
         tables = self.cursor.fetchall()
         for table in tables:
@@ -69,5 +70,6 @@ class Database:
             self.cursor.execute(f"DELETE FROM sqlite_sequence WHERE name='{table[0]}';")
         self.connection.commit()
 
-    def close(self):
+    def close(self) -> None:
         self.connection.close()
+```
