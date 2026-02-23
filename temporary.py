@@ -1,5 +1,4 @@
 def stable_noise_func(alpha, beta, size=1):
-
   if not 0 < alpha <= 2:
     raise ValueError("alpha must be in the range (0, 2]")
   if not -1 <= beta <= 1:
@@ -14,4 +13,4 @@ def stable_noise_func(alpha, beta, size=1):
     term3 = np.cos(U - alpha * (U + beta * np.pi / 2))
 
     # Cast to complex to avoid nans due to exponentiation
-    X = term1 * term2 * abs(
+    X = term1 * term2 * abs(term3)
