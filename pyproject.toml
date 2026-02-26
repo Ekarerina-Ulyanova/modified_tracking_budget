@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools>=42","wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modified_tracking_budget"
+version = "0.0.0"
+description = "Budget tracking utilities"
+authors = [ { name = "<author>", email = "<email>" } ]
+

@@ -14,4 +14,6 @@ def stable_noise_func(alpha, beta, size=1):
     term3 = np.cos(U - alpha * (U + beta * np.pi / 2))
 
     # Cast to complex to avoid nans due to exponentiation
-    X = term1 * term2 * abs(
+    X = term1 * term2 * np.abs(term3 / E) ** ((1.0 - alpha) / alpha)
+
+    return X
