@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modified-tracking-budget"
+version = "0.0.0"
+description = "Budget tracking utilities"
+readme = "README.md"
+authors = [{name = ""}]
+
+[tool.pytest]
+# pytest configuration can be added here if desired
