@@ -39,7 +39,7 @@ modifiedtrackingbudget is a personal finance tool designed to help individuals g
 
 <corefeatures>
 
-1. **Budget Management**: Tracks income and expenses for personal financial control.
+1. **Budget Management**: Tracks income and expenses for personal financial control. Main logic in https://github.com/Ekarerina-Ulyanova/modified_tracking_budget/blob/main/budget_manager.py
 2. **SQLite Database**: Uses SQLite for persistent, reliable data storage.
 3. **Categorization**: Allows defining categories for inflows & outflows analysis.
 4. **Command-Line Interface**: Provides user interaction via a CLI application.
