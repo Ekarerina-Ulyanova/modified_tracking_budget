@@ -1,5 +1,5 @@
 import pytest
-from main import BudgetApp
+from modified_tracking_budget.__main__ import BudgetApp
 import tkinter as tk
 from tkinter import messagebox
 
