@@ -2,6 +2,18 @@ import numpy as np
 
 
 def stable_noise_func(alpha, beta, size=1):
+  """
+  Generate stable noise using the specified parameters.
+
+  Args:
+  - alpha: Exponent parameter for the noise function. Must be in the range (0, 2].
+  - beta: Scaling parameter for the noise function. Must be in the range [-1, 1].
+  - size: Number of samples to generate (default is 1).
+
+  The method generates stable noise values based on the provided alpha and beta parameters. It uses a stable noise generation algorithm that involves random sampling and mathematical computations. The alpha parameter controls the shape of the noise distribution, while the beta parameter scales the noise values. The size parameter determines the number of noise samples to generate.
+
+  The method handles special cases for different alpha values to ensure accurate noise generation. It returns the generated noise values as a NumPy array unless only one value is generated, in which case it returns a scalar for convenience.
+  """
 
   if not 0 < alpha <= 2:
     raise ValueError("alpha must be in the range (0, 2]")
